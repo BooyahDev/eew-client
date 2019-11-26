@@ -1,7 +1,7 @@
 # EEWClient
 
 group=club.yjsnpi.eew  
-artifact=eewclient
+artifact=eew-client
 
 
 # History
