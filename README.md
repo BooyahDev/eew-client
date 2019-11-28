@@ -5,6 +5,9 @@ artifact=eew-client
 
 
 # History
+Version:0.5
+Added Event
+
 Version:0.4
 Bugfix
 
