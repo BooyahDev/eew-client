@@ -5,6 +5,9 @@ artifact=eew-client
 
 
 # History
+Version:0.4
+Bugfix
+
 Version:0.3
 Changed Jackson
 
