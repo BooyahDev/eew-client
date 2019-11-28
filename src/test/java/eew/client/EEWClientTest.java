@@ -20,7 +20,7 @@ public class EEWClientTest {
             EEWClient eewClient = new EEWClient(new URI("wss://eew-test.yjsnpi.club"));
             eewClient.setEewEventListener(new EEWEventListener() {
                 @Override
-                public void happen(EEWInfo info) {
+                public void happen(String info) {
                     System.out.println(info);
                 }
             });
