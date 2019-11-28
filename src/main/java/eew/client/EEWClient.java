@@ -3,6 +3,9 @@
  */
 package eew.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -23,6 +26,54 @@ public class EEWClient {
 
             @Override
             public void onMessage(String message) {
+
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    JsonNode rootNode = mapper.readTree(message);
+                    if (rootNode.get("result").get("message").asText().equals("データがありません")) {
+                        System.out.println("No Data");
+                    }else {
+                        if (eewEventListener != null) {
+                            EEWInfo info = new EEWInfo();
+                            EEWInfo.Result result = new EEWInfo.Result();
+                            result.setMessage(rootNode.get("result").get("message").asText());
+                            result.setStatus(rootNode.get("result").get("status").asText());
+                            result.setIs_auth(rootNode.get("result").get("is_auth").asBoolean());
+                            info.setResult(result);
+
+                            EEWInfo.Security security = new EEWInfo.Security();
+                            security.setRealm(rootNode.get("security").get("realm").asText());
+                            security.setHash(rootNode.get("security").get("hash").asText());
+                            info.setSecurity(security);
+
+                            info.setReport_time(rootNode.get("report_time").asText());
+                            info.setRegion_code(rootNode.get("region_code").asText());
+                            info.setRequest_time(rootNode.get("request_time").asText());
+                            info.setRegion_name(rootNode.get("region_name").asText());
+
+                            info.setLongitude(rootNode.get("longitude").asText());
+                            info.setIs_cancel(rootNode.get("is_cancel").asBoolean());
+                            info.setDepth(rootNode.get("depth").asText());
+                            info.setCalcintensity(rootNode.get("calcintensity").asText());
+                            info.setIs_final(rootNode.get("is_final").asBoolean());
+                            info.setIs_training(rootNode.get("is_training").asBoolean());
+                            info.setLatitude(rootNode.get("latitude").asText());
+                            info.setOrigin_time(rootNode.get("origin_name").asText());
+                            info.setMagunitude(rootNode.get("magunitude").asText());
+                            info.setReport_num(rootNode.get("report_num").asText());
+                            info.setRequest_hypo_type(rootNode.get("request_hypo_type").asText());
+                            info.setReport_id(rootNode.get("report_id").asText());
+                            info.setAlertflg(rootNode.get("alertflg").asText());
+                            System.out.println(info.toString());
+                            System.out.println(rootNode.get("result").get("message").asText());
+                            eewEventListener.happen(info);
+                        }
+                    }
+
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
 //                JsonObject rootObject = new Gson().fromJson(message, JsonObject.class);
 //                if (rootObject.get("result").getAsJsonObject().get("message").getAsString().equals("データがありません")) {
 //                    System.out.println("NoData");
@@ -64,7 +115,7 @@ public class EEWClient {
 //                    }
 //                    System.out.println("Data Found!");
 //                }
-                eewEventListener.happen(message);
+//                eewEventListener.happen(message);
             }
 
             @Override

@@ -20,8 +20,8 @@ public class EEWClientTest {
             EEWClient eewClient = new EEWClient(new URI("wss://eew-test.yjsnpi.club"));
             eewClient.setEewEventListener(new EEWEventListener() {
                 @Override
-                public void happen(String info) {
-                    System.out.println(info);
+                public void happen(EEWInfo info) {
+                    System.out.println(info.toString());
                 }
             });
             eewClient.start();
@@ -29,7 +29,7 @@ public class EEWClientTest {
             e.printStackTrace();
         }
         try {
-            Thread.sleep(600000000);
+            Thread.sleep(600000001);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
