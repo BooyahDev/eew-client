@@ -5,6 +5,9 @@ artifact=eew-client
 
 
 # History
+Version:0.3
+Changed Jackson
+
 Version:0.2
 Remove Gson
 
