@@ -5,6 +5,9 @@ artifact=eew-client
 
 
 # History
+Version:0.6
+Added Original Calc Intensity
+
 Version:0.5
 Added Event
 

@@ -12,9 +12,10 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 
 public class EEWClient {
-    URI uri;
-    WebSocketClient webSocketClient;
-    EEWEventListener eewEventListener;
+    private URI uri;
+    private WebSocketClient webSocketClient;
+    private EEWEventListener eewEventListener;
+    private Intensity intensity;
 
     public EEWClient(URI uri) {
         this.uri = uri;
@@ -67,6 +68,31 @@ public class EEWClient {
                             info.setReport_id(rootNode.get("report_id").asText());
                             info.setAlertflg(rootNode.get("alertflg").asText());
 
+                            if (intensity != null){
+                                double depth;
+                                try {
+                                    depth = Double.parseDouble(rootNode.get("depth").asText());
+                                }catch (Exception e){
+                                    depth = 1.0;
+                                }
+                                try {
+                                    double _intensity = intensity.getInstr(
+                                            Double.parseDouble(rootNode.get("magunitude").asText()),
+                                            depth,
+
+                                            Double.parseDouble(rootNode.get("latitude").asText()),
+                                            Double.parseDouble(rootNode.get("longitude").asText())
+                                    );
+                                    _intensity = Math.round(_intensity);
+                                    if (_intensity >= 0)
+                                        info.setIntensity(String.valueOf(_intensity));
+                                    else
+                                        info.setIntensity("0");
+                                }catch (Exception e){
+                                    info.setIntensity("0");
+                                }
+                            }
+
                             eewEventListener.happen(info);
                         }
                     }
@@ -93,6 +119,29 @@ public class EEWClient {
 
     public void setEewEventListener(EEWEventListener eewEventListener) {
         this.eewEventListener = eewEventListener;
+    }
+
+    /**
+     * 座標と地面のAVS30値をセットすると予測震度を計算します
+     *
+     * 震度計算は下記の計算式で導出しています
+     * http://www.j-map.bosai.go.jp/j-map/result/tn_246/html/html/2-4-1.html
+     *
+     * 計算結果は「intensity」をKeyとしてJson形式で出力されます。
+     *
+     * 赤羽岩淵は
+     * AVS: 142 (m/s)
+     * 緯度: 35.783
+     * 軽度: 139.722
+     *
+     * @param avs : AVS30値 AVS30は下記URL「表層地盤」→ 「30m平均S波速度」で求める http://www.j-shis.bosai.go.jp/map/
+     * @param lat : 震度予測地点の緯度
+     * @param lon : 震度予測地点の軽度
+     */
+    public void setHouseInfo(int avs, double lat, double lon) {
+        intensity = new Intensity();
+        intensity.setHouseCoordinate(lat, lon);
+        intensity.setAvs(avs);
     }
 
     public void start() {

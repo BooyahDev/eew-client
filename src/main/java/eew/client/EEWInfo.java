@@ -20,7 +20,7 @@ public class EEWInfo {
     private String request_hypo_type;
     private String report_id;
     private String alertflg;
-
+    private String intensity;
 
     // Getter Methods
 
@@ -100,6 +100,10 @@ public class EEWInfo {
         return alertflg;
     }
 
+    public String getIntensity() {
+        return intensity;
+    }
+
     // Setter Methods
 
     public void setResult(Result resultObject) {
@@ -176,6 +180,10 @@ public class EEWInfo {
 
     public void setAlertflg(String alertflg) {
         this.alertflg = alertflg;
+    }
+
+    public void setIntensity(String intensity) {
+        this.intensity = intensity;
     }
 
     public static class Result {
@@ -257,7 +265,7 @@ public class EEWInfo {
     @Override
     public String toString() {
         return "EEWInfo{" +
-                "ResultObject=" + ResultObject.toString() +
+                "ResultObject=" + ResultObject +
                 ", report_time='" + report_time + '\'' +
                 ", region_code='" + region_code + '\'' +
                 ", request_time='" + request_time + '\'' +
@@ -270,12 +278,13 @@ public class EEWInfo {
                 ", is_training=" + is_training +
                 ", latitude='" + latitude + '\'' +
                 ", origin_time='" + origin_time + '\'' +
-                ", SecurityObject=" + SecurityObject.toString() +
+                ", SecurityObject=" + SecurityObject +
                 ", magunitude='" + magunitude + '\'' +
                 ", report_num='" + report_num + '\'' +
                 ", request_hypo_type='" + request_hypo_type + '\'' +
                 ", report_id='" + report_id + '\'' +
                 ", alertflg='" + alertflg + '\'' +
+                ", intensity='" + intensity + '\'' +
                 '}';
     }
 }
