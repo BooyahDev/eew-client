@@ -87,9 +87,9 @@ public class EEWClient {
                                     if (_intensity >= 0)
                                         info.setIntensity(String.valueOf(_intensity));
                                     else
-                                        info.setIntensity("0");
+                                        info.setIntensity("0.0");
                                 }catch (Exception e){
-                                    info.setIntensity("0");
+                                    info.setIntensity("0.0");
                                 }
                             }
 
