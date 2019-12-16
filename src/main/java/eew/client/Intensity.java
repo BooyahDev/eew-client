@@ -39,7 +39,6 @@ public class Intensity {
         double amp = 2.367 - 0.852 * Math.log10(avs);
         double PGV = Math.pow(Math.E,amp) * Math.pow(Math.E,pgv);
         double I = 2.002 + 2.603 * Math.log10(PGV);
-        System.out.println(pgv);
         return I;
 //        double pgv = 0.58 * momentmagnitute + 0.0038 * depth + 0 - 1.29 - Math.log10(x + 0.0028 * Math.pow(10, 0.5 * momentmagnitute)) - 0.002 * x;
 //        return 2.68 + 1.72 * pgv;

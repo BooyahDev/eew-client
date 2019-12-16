@@ -5,6 +5,9 @@ artifact=eew-client
 
 
 # History
+Version:0.8
+Changed Intensity Format
+
 Version:0.7
 Changed zero = 0.0
 

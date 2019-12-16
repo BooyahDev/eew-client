@@ -83,7 +83,8 @@ public class EEWClient {
                                             Double.parseDouble(rootNode.get("latitude").asText()),
                                             Double.parseDouble(rootNode.get("longitude").asText())
                                     );
-                                    _intensity = Math.round(_intensity);
+//                                    _intensity = Math.round(_intensity);
+                                    _intensity = Double.parseDouble(String.format("%.1f",_intensity));
                                     if (_intensity >= 0)
                                         info.setIntensity(String.valueOf(_intensity));
                                     else

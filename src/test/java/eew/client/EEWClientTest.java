@@ -19,7 +19,7 @@ public class EEWClientTest {
         System.out.println("Hello");
         try {
             EEWClient eewClient = new EEWClient(new URI("wss://eew-test.yjsnpi.club"));
-            eewClient.setHouseInfo(142,35.783, 139.722);
+            eewClient.setHouseInfo(142,34.4049, 133.1931);
             eewClient.setEewEventListener(new EEWEventListener() {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
