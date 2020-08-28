@@ -1,6 +1,6 @@
 # EEWClient
 
-group=club.yjsnpi.eew  
+group=club-yjsnpi-eew
 artifact=eew-client
 
 
