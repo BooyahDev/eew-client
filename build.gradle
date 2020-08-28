@@ -10,7 +10,6 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
-	id 'org.apache.maven.wagon:wagon-webdav-jackrabbit' version '2.9'
 }
 
 repositories {
